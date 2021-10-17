@@ -7,5 +7,6 @@
             "group": "nop",
             "database": "./nop.db"
         }
-    ]
+    ],
+    "python.formatting.provider": "black"
 }

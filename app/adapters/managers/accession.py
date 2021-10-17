@@ -7,7 +7,7 @@ from app.domain.entities.accession import Accession
 from app.domain.repository.accession import AccessionRepository
 
 
-class DatabaseAccessionRepository(AccessionRepository):
+class AccessionRepository(AccessionRepository):
     def add(self, accession: Accession) -> Accession:
 
         with DBConnectionHander() as conn:
@@ -24,11 +24,4 @@ class DatabaseAccessionRepository(AccessionRepository):
 
     def show(self, term: str) -> List[Accession]:
 
-        # return (
-        #     AccessionModel.select()
-        #     .where(AccessionModel.accession.contains(term))
-        #     .order_by(AccessionModel.accession)
-        #     .dicts()
-        # )
-
-        return term
+        return AccessionsModel.query.filter_by(accession=term)
