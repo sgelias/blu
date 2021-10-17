@@ -14,7 +14,7 @@ repos:
     hooks:
       - id: requirements
         name: requirements
-        entry: bash -c '${HOME}/.venv/nop-v2/bin/pip freeze > requirements.txt; git add requirements.txt'
+        entry: bash -c '${HOME}/.venv/nop-v2/bin/pip freeze > requirements-dev.txt; git add requirements-dev.txt'
         language: system
         pass_filenames: false
         stages: [commit]
