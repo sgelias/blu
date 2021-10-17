@@ -8,5 +8,9 @@
             "database": "./nop.db"
         }
     ],
-    "python.formatting.provider": "black"
+    "python.formatting.provider": "black",
+    "cSpell.words": [
+        "oligotype",
+        "OLIGOTYPES"
+    ]
 }

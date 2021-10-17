@@ -2,6 +2,7 @@ import click
 
 from .accessions import get_accessions_list
 from .namespaces import create_namespace, get_namespaces_list, update_namespace
+from .oligotypes import create_oligotype, get_oligotypes_list, update_oligotype
 
 __version__ = "2.0.0"
 
@@ -64,3 +65,36 @@ def create_namespace_cli(**kwargs) -> None:
 )
 def update_namespace_cli(**kwargs) -> None:
     update_namespace(**kwargs)
+
+
+# -----------------------------------------------------------------------------
+# OLIGOTYPES
+# -----------------------------------------------------------------------------
+
+
+@nop_cmds.group("oligo", help="Oligotypes associated tools.")
+def oligotypes_cmds():
+    ...
+
+
+@oligotypes_cmds.command("list")
+@click.argument("term", required=False, type=str, default=None)
+def get_oligotypes_list_cli(**kwargs) -> None:
+    get_oligotypes_list(**kwargs)
+
+
+@oligotypes_cmds.command("new")
+@click.argument("oligotype", required=True, type=str)
+def create_oligotype_cli(**kwargs) -> None:
+    create_oligotype(**kwargs)
+
+
+@oligotypes_cmds.command("edit")
+@click.option(
+    "--old-oligotype", "-o", required=True, type=str, help="The oligotype to edit."
+)
+@click.option(
+    "--new-oligotype", "-n", required=True, type=str, help="The new oligotype name."
+)
+def update_oligotype_cli(**kwargs) -> None:
+    update_oligotype(**kwargs)

@@ -1,0 +1,2 @@
+class AlreadyRegisteredOligotype(Exception):
+    pass
