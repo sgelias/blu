@@ -1,0 +1,15 @@
+Metadata-Version: 2.1
+Name: NopCLI
+Version: 2.0.0
+Summary: Neoprospecta Operational Command Line Interface - NOP-CLI
+Home-page: https://bitbucket.org/neoprospecta/nop_cli/src/main/
+Author: Neoprospecta DEV's Team 2021.
+Author-email: samuel.elias@neoprospecta.com
+License: UNKNOWN
+Description: UNKNOWN
+Keywords: Genbank,Blast,Neoprospecta,Operational,Bioinformatics
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
