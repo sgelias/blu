@@ -3,3 +3,4 @@
 data
 nop.db
 nop.session.sql
+.pytest_cache

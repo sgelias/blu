@@ -4,6 +4,7 @@ backports.entry-points-selectable==1.1.0
 black==21.9b0
 cfgv==3.3.1
 click==8.0.3
+dacite==1.6.0
 distlib==0.3.3
 Faker==9.3.1
 filelock==3.3.1

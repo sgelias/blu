@@ -21,4 +21,4 @@ class Accession:
         return accession_repository.add(self)
 
     def __hash__(self):
-        return hash(self.accession_id)
+        return hash(self.id)

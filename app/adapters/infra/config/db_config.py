@@ -17,9 +17,8 @@ class DBConnectionHander:
 
     def __enter__(self):
 
-        eng = create_engine(self.__connection_string)
-        session_maker = sessionmaker()
-        self.session = session_maker(bind=eng)
+        eng = create_engine(self.__connection_string, convert_unicode=True)
+        self.session = sessionmaker(bind=eng)()
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
@@ -33,4 +32,4 @@ class DBConnectionHander:
     def get_engine(self):
         """Provide the database connection engine."""
 
-        return create_engine(self.__connection_string)
+        return create_engine(self.__connection_string, convert_unicode=True)
