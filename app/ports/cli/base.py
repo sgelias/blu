@@ -1,7 +1,7 @@
 import click
 
 from .accessions import get_accessions_list
-from .namespaces import get_namespaces_list, create_namespace
+from .namespaces import create_namespace, get_namespaces_list, update_namespace
 
 __version__ = "2.0.0"
 
@@ -53,3 +53,14 @@ def get_namespaces_list_cli(**kwargs) -> None:
 @click.argument("namespace", required=True, type=str)
 def create_namespace_cli(**kwargs) -> None:
     create_namespace(**kwargs)
+
+
+@namespaces_cmds.command("edit")
+@click.option(
+    "--old-namespace", "-o", required=True, type=str, help="The namespace to edit."
+)
+@click.option(
+    "--new-namespace", "-n", required=True, type=str, help="The new namespace name."
+)
+def update_namespace_cli(**kwargs) -> None:
+    update_namespace(**kwargs)

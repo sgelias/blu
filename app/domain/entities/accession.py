@@ -10,6 +10,10 @@ if TYPE_CHECKING:
 @dataclass
 class Accession:
 
+    # -------------------------------------------------------------------------
+    # FIELD DEFINITIONS
+    # -------------------------------------------------------------------------
+
     accession: str
     title: str
     taxid: Optional[int]
@@ -17,8 +21,16 @@ class Accession:
     sciname_clean: Optional[str]
     id: str = field(default_factory=lambda: str(uuid4()))
 
+    # -------------------------------------------------------------------------
+    # PUBLIC
+    # -------------------------------------------------------------------------
+
     def save(self, accession_repository: "AccessionRepository"):
         return accession_repository.add(self)
+
+    # -------------------------------------------------------------------------
+    # MAGIC METHODS
+    # -------------------------------------------------------------------------
 
     def __hash__(self):
         return hash(self.id)

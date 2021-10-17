@@ -10,11 +10,23 @@ if TYPE_CHECKING:
 @dataclass
 class Namespace:
 
+    # -------------------------------------------------------------------------
+    # FIELD DEFINITIONS
+    # -------------------------------------------------------------------------
+
     namespace: str
     id: str = field(default_factory=lambda: str(uuid4()))
 
+    # -------------------------------------------------------------------------
+    # PUBLIC METHODS
+    # -------------------------------------------------------------------------
+
     def save(self, namespace_repository: "NamespaceRepository"):
         return namespace_repository.add(self)
+
+    # -------------------------------------------------------------------------
+    # MAGIC METHODS
+    # -------------------------------------------------------------------------
 
     def __hash__(self):
         return hash(self.id)

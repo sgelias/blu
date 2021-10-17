@@ -5,6 +5,7 @@ from app.adapters.infra.entities import NamespacesModel
 from app.domain.entities import Namespace
 from app.domain.repository import NamespaceRepository
 from dacite import from_dict
+from sqlalchemy import update
 
 
 class NamespaceRepositoryManager(NamespaceRepository):
@@ -65,3 +66,50 @@ class NamespaceRepositoryManager(NamespaceRepository):
                 NamespacesModel.query.order_by(NamespacesModel.namespace.desc())
             )
         ]
+
+    @staticmethod
+    def edit(old_namespace: str, new_namespace: str) -> Namespace:
+        """Update a existing namespace
+
+        Args:
+            old_namespace (str): The name of the namespace to edit.
+            new_namespace (str): The new namespace name.
+
+        Returns:
+            Namespace: A namespace instance.
+        """
+
+        proposed_namespace = NamespacesModel.query.filter(
+            NamespacesModel.namespace == new_namespace
+        ).first()
+
+        if proposed_namespace:
+            raise ValueError(
+                f"Namespace also registered: {new_namespace}. Select other."
+            )
+
+        with DBConnectionHander() as conn:
+            try:
+                updated_namespace = (
+                    update(NamespacesModel)
+                    .where(NamespacesModel.namespace == old_namespace)
+                    .values(namespace=new_namespace)
+                )
+
+                conn.session.execute(updated_namespace)
+                conn.session.commit()
+
+                return from_dict(
+                    Namespace,
+                    (
+                        NamespacesModel.query.filter(
+                            NamespacesModel.namespace == new_namespace
+                        ).first()
+                    ).__dict__,
+                )
+
+            except:
+                conn.session.rollback()
+                raise
+            finally:
+                conn.session.close_all()

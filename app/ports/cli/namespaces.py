@@ -17,3 +17,9 @@ def create_namespace(namespace: Dict[str, Any]) -> None:
     namespace_repo = NamespaceRepositoryManager()
     new_namespace = namespace.save(namespace_repo)
     print(new_namespace)
+
+
+def update_namespace(old_namespace: str, new_namespace: str) -> None:
+
+    response = NamespaceRepositoryManager().edit(old_namespace, new_namespace)
+    print(response)

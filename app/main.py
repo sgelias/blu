@@ -8,7 +8,7 @@ def init_db():
 
     eng = DBConnectionHander().get_engine()
     Base.metadata.create_all(eng)
-    print(f"Database created at: {eng}")
+    print(f"Database created at: {eng.url}")
 
 
 def main():

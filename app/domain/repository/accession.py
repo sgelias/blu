@@ -5,6 +5,11 @@ from app.domain.entities import Accession
 
 
 class AccessionRepository(metaclass=ABCMeta):
+
+    # -------------------------------------------------------------------------
+    # ABSTRACT METHODS
+    # -------------------------------------------------------------------------
+
     @abstractmethod
     def add(self, accession: Accession) -> Accession:
         raise NotImplementedError
