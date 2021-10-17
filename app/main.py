@@ -1,22 +1,18 @@
-from app.adapters.database import database, models_list
+from app.adapters.infra.config import Base, DBConnectionHander
+from app.adapters.infra.entities import *  # noqa: F401, F403
 from app.ports.cli import nop_cmds
 
 
-data = {
-    # "id": "gi|1948552484|gb|CP065972.1|",
-    "accession": "CP065972",
-    "title": "Corynebacterium tuberculostearicum strain FDAARGOS_993 chromosome, complete genome",
-    "taxid": 38304,
-    "sciname": "Corynebacterium tuberculostearicum",
-    "sciname_clean": "Corynebacterium tuberculostearicum",
-}
+@nop_cmds.command("initdb")
+def init_db():
+
+    eng = DBConnectionHander().get_engine()
+    Base.metadata.create_all(eng)
+    print(f"Database created at: {eng}")
 
 
 def main():
-    database.connect()
-    database.create_tables(models_list)
     nop_cmds()
-    database.close()
 
 
 if __name__ == "__main__":

@@ -15,7 +15,7 @@ class Accession:
     taxid: Optional[int]
     sciname: Optional[str]
     sciname_clean: Optional[str]
-    accession_id: str = field(default_factory=lambda: str(uuid4()))
+    id: str = field(default_factory=lambda: str(uuid4()))
 
     def save(self, accession_repository: "AccessionRepository"):
         return accession_repository.add(self)

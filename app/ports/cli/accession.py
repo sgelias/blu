@@ -1,6 +1,6 @@
 from typing import Any, Dict, Union
-from app.adapters.managers.accession import DatabaseAccessionRepository
 
+from app.adapters.managers.accession import DatabaseAccessionRepository
 from app.domain.entities.accession import Accession
 
 
