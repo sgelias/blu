@@ -1,3 +1,3 @@
-from .accession import AccessionRepository
+from .accession import AccessionRepositoryManager
 
-__all__ = ("AccessionRepository",)
+__all__ = ("AccessionRepositoryManager",)

@@ -4,7 +4,7 @@ from typing import List
 from app.domain.entities.accession import Accession
 
 
-class AccessionRepositoryAbs(metaclass=ABCMeta):
+class AccessionRepository(metaclass=ABCMeta):
     @abstractmethod
     def add_accession(self, accession: Accession) -> Accession:
         raise NotImplementedError

@@ -3,11 +3,11 @@ from typing import List
 from app.adapters.infra.config import DBConnectionHander
 from app.adapters.infra.entities import AccessionsModel
 from app.domain.entities.accession import Accession
-from app.domain.repository.accession import AccessionRepositoryAbs
+from app.domain.repository.accession import AccessionRepository
 from dacite import from_dict
 
 
-class AccessionRepository(AccessionRepositoryAbs):
+class AccessionRepositoryManager(AccessionRepository):
     """A manager of Accessions model."""
 
     @staticmethod

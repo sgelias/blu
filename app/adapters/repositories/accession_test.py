@@ -1,10 +1,10 @@
 from app.adapters.infra.config import DBConnectionHander
-from app.adapters.repositories.accession import AccessionRepository
+from app.adapters.repositories.accession import AccessionRepositoryManager
 from app.domain.entities import Accession
 from faker import Faker
 
 faker = Faker()
-accession_repository = AccessionRepository()
+accession_repository = AccessionRepositoryManager()
 conn_handler = DBConnectionHander()
 
 
