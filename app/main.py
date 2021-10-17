@@ -3,7 +3,7 @@ from app.adapters.infra.entities import *  # noqa: F401, F403
 from app.ports.cli import nop_cmds
 
 
-@nop_cmds.command("initdb")
+@nop_cmds.command("initdb", help="Initialize database if not exists.")
 def init_db():
 
     eng = DBConnectionHander().get_engine()

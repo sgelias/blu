@@ -1,5 +1,5 @@
 from app.adapters.infra.config import DBConnectionHander
-from app.adapters.repositories.accession import AccessionRepositoryManager
+from app.adapters.repositories import AccessionRepositoryManager
 from app.domain.entities import Accession
 from faker import Faker
 
@@ -23,7 +23,7 @@ def test_add_accession():
     accession = Accession(**data)
 
     # Insert a single record.
-    new_accession = accession_repository.add_accession(accession)
+    new_accession = accession_repository.add(accession)
 
     # Fetch the inserted record.
     query_accession = eng.execute(

@@ -2,8 +2,8 @@ from typing import List
 
 from app.adapters.infra.config import DBConnectionHander
 from app.adapters.infra.entities import AccessionsModel
-from app.domain.entities.accession import Accession
-from app.domain.repository.accession import AccessionRepository
+from app.domain.entities import Accession
+from app.domain.repository import AccessionRepository
 from dacite import from_dict
 
 
@@ -11,7 +11,7 @@ class AccessionRepositoryManager(AccessionRepository):
     """A manager of Accessions model."""
 
     @staticmethod
-    def add_accession(accession: Accession) -> Accession:
+    def add(accession: Accession) -> Accession:
         """Insert a single record into database
 
         Args:
@@ -43,7 +43,7 @@ class AccessionRepositoryManager(AccessionRepository):
                 conn.session.close_all()
 
     @staticmethod
-    def list_records(term: str) -> List[AccessionsModel]:
+    def show(term: str) -> List[Accession]:
         """List accessions given the search term.
 
         Args:
@@ -53,11 +53,19 @@ class AccessionRepositoryManager(AccessionRepository):
             List[Accession]: A list of filtered accessions.
         """
 
+        if term:
+            return [
+                from_dict(Accession, record.__dict__)
+                for record in (
+                    AccessionsModel.query.filter(
+                        AccessionsModel.accession == term
+                    ).order_by(AccessionsModel.accession.desc())
+                )
+            ]
+
         return [
             from_dict(Accession, record.__dict__)
             for record in (
-                AccessionsModel.query.filter(
-                    AccessionsModel.accession == term
-                ).order_by(AccessionsModel.accession.desc())
+                AccessionsModel.query.order_by(AccessionsModel.accession.desc())
             )
         ]

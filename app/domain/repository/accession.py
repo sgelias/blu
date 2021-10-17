@@ -1,14 +1,14 @@
 from abc import ABCMeta, abstractmethod
 from typing import List
 
-from app.domain.entities.accession import Accession
+from app.domain.entities import Accession
 
 
 class AccessionRepository(metaclass=ABCMeta):
     @abstractmethod
-    def add_accession(self, accession: Accession) -> Accession:
+    def add(self, accession: Accession) -> Accession:
         raise NotImplementedError
 
     @abstractmethod
-    def list_records(self) -> List[Accession]:
+    def show(self) -> List[Accession]:
         raise NotImplementedError

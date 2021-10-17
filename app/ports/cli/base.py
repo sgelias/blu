@@ -1,6 +1,7 @@
 import click
 
-from .accession import get_list
+from .accessions import get_accessions_list
+from .namespaces import get_namespaces_list, create_namespace
 
 __version__ = "2.0.0"
 
@@ -21,7 +22,34 @@ def nop_cmds():
 # -----------------------------------------------------------------------------
 
 
-@nop_cmds.command("list")
-@click.argument("term", required=True, type=str)
-def show(**kwargs) -> None:
-    get_list(**kwargs)
+@nop_cmds.group("acc", help="Accessions associated tools.")
+def accessions_cmds():
+    ...
+
+
+@accessions_cmds.command("list")
+@click.argument("term", required=False, type=str, default=None)
+def get_accessions_list_cli(**kwargs) -> None:
+    get_accessions_list(**kwargs)
+
+
+# -----------------------------------------------------------------------------
+# NAMESPACES
+# -----------------------------------------------------------------------------
+
+
+@nop_cmds.group("ns", help="Namespace associated tools.")
+def namespaces_cmds():
+    ...
+
+
+@namespaces_cmds.command("list")
+@click.argument("term", required=False, type=str, default=None)
+def get_namespaces_list_cli(**kwargs) -> None:
+    get_namespaces_list(**kwargs)
+
+
+@namespaces_cmds.command("new")
+@click.argument("namespace", required=True, type=str)
+def create_namespace_cli(**kwargs) -> None:
+    create_namespace(**kwargs)
