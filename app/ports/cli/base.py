@@ -2,6 +2,7 @@ import click
 
 from .accessions import get_accessions_list
 from .namespaces import create_namespace, get_namespaces_list, update_namespace
+from .oligotype_links import get_namespaced_oligotypes_list
 from .oligotypes import create_oligotype, get_oligotypes_list, update_oligotype
 
 __version__ = "2.0.0"
@@ -98,3 +99,19 @@ def create_oligotype_cli(**kwargs) -> None:
 )
 def update_oligotype_cli(**kwargs) -> None:
     update_oligotype(**kwargs)
+
+
+# -----------------------------------------------------------------------------
+# OLIGOTYPE LINKS
+# -----------------------------------------------------------------------------
+
+
+@nop_cmds.group("ol", help="Oligotypes links associated tools.")
+def oligotype_links_cmds():
+    ...
+
+
+@oligotype_links_cmds.command("list")
+@click.argument("term", required=False, type=str, default=None)
+def get_namespaced_oligotypes_list_cli(**kwargs) -> None:
+    get_namespaced_oligotypes_list(**kwargs)

@@ -1,5 +1,22 @@
 from .accession import AccessionRepository
+from .blast_report import (
+    BlastConfigRepository,
+    BlastHitsRepository,
+    BlastHspsRepository,
+    BlastResultsRepository,
+)
 from .namespace import NamespaceRepository
 from .oligotype import OligotypeRepository
+from .oligotype_link import NamespacesdOligotypeRepository
 
-__all__ = ("AccessionRepository", "NamespaceRepository", "OligotypeRepository")
+
+__all__ = (
+    "AccessionRepository",
+    "BlastConfigRepository",
+    "BlastHitsRepository",
+    "BlastHspsRepository",
+    "BlastResultsRepository",
+    "NamespaceRepository",
+    "OligotypeRepository",
+    "NamespacesdOligotypeRepository",
+)
