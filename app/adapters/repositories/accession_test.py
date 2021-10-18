@@ -27,7 +27,7 @@ def test_add_accession():
 
     # Fetch the inserted record.
     query_accession = eng.execute(
-        f"SELECT * FROM nop_accessions WHERE id = '{new_accession.id}';"
+        f"SELECT * FROM blu_accessions WHERE id = '{new_accession.id}';"
     ).fetchone()
 
     print(new_accession)
@@ -42,4 +42,4 @@ def test_add_accession():
     assert query_accession.sciname_clean == new_accession.sciname_clean
 
     # Delete inserted record.
-    eng.execute(f"DELETE FROM nop_accessions WHERE id = '{new_accession.id}';")
+    eng.execute(f"DELETE FROM blu_accessions WHERE id = '{new_accession.id}';")

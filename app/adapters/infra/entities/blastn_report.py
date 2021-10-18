@@ -39,7 +39,7 @@ class Json(TypeDecorator):
 class BlastConfigModel(Base):
     """BlastConfig entity."""
 
-    __tablename__ = "nop_blast_config"
+    __tablename__ = "blu_blast_config"
 
     id = Column(Text(length=36), default=lambda: str(uuid4()), primary_key=True)
     program = Column(Text(10), nullable=False)
@@ -57,7 +57,7 @@ class BlastConfigModel(Base):
 class BlastHspsModel(Base):
     """BlastHsps entity."""
 
-    __tablename__ = "nop_blast_hsps"
+    __tablename__ = "blu_blast_hsps"
 
     id = Column(Text(length=36), default=lambda: str(uuid4()), primary_key=True)
     bit_score = Column(Float, nullable=False)
@@ -78,13 +78,13 @@ class BlastHspsModel(Base):
 
 
 blast_hits_accessions = Table(
-    "nop_blast_hits_accessions",
+    "blu_blast_hits_accessions",
     Base.metadata,
     Column(
-        "nop_blast_hits_id", Text, ForeignKey("nop_blast_hits.id"), primary_key=True
+        "blu_blast_hits_id", Text, ForeignKey("blu_blast_hits.id"), primary_key=True
     ),
     Column(
-        "nop_accessions_id", Text, ForeignKey("nop_accessions.id"), primary_key=True
+        "blu_accessions_id", Text, ForeignKey("blu_accessions.id"), primary_key=True
     ),
     Column("created_at", Date),
 )
@@ -93,10 +93,10 @@ blast_hits_accessions = Table(
 class BlastHitsModel(Base):
     """BlastHits entity."""
 
-    __tablename__ = "nop_blast_hits"
+    __tablename__ = "blu_blast_hits"
 
     id = Column(Text(length=36), default=lambda: str(uuid4()), primary_key=True)
-    query_oligotype = Column(Text, ForeignKey("nop_blast_results.id"))
+    query_oligotype = Column(Text, ForeignKey("blu_blast_results.id"))
     description = relationship(
         "AccessionsModel", back_populates="blast_hits", secondary=blast_hits_accessions
     )
@@ -105,9 +105,9 @@ class BlastHitsModel(Base):
 class BlastResultsModel(Base):
     """BlastResults entity."""
 
-    __tablename__ = "nop_blast_results"
+    __tablename__ = "blu_blast_results"
 
     id = Column(Text(length=36), default=lambda: str(uuid4()), primary_key=True)
-    blast_config = Column(Text, ForeignKey("nop_blast_config.id"))
-    query_oligotype = Column(Text, ForeignKey("nop_oligotypes.id"))
+    blast_config = Column(Text, ForeignKey("blu_blast_config.id"))
+    query_oligotype = Column(Text, ForeignKey("blu_oligotypes.id"))
     search_hits = relationship("BlastHitsModel")

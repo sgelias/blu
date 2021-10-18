@@ -1,8 +1,0 @@
-README.md
-setup.cfg
-setup.py
-NopCLI.egg-info/PKG-INFO
-NopCLI.egg-info/SOURCES.txt
-NopCLI.egg-info/dependency_links.txt
-NopCLI.egg-info/entry_points.txt
-NopCLI.egg-info/top_level.txt

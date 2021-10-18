@@ -20,7 +20,7 @@ DEBUG = True
 GLOBAL_NOP_DIRECTORY = getenv("GLOBAL_NOP_DIRECTORY")
 
 if not GLOBAL_NOP_DIRECTORY:
-    GLOBAL_NOP_DIRECTORY = f"{path.expanduser('~')}/.nop"
+    GLOBAL_NOP_DIRECTORY = f"{path.expanduser('~')}/.blu"
 
 
 # ------------------------------------------------------------------------------
@@ -28,5 +28,5 @@ if not GLOBAL_NOP_DIRECTORY:
 # ------------------------------------------------------------------------------
 
 
-# SQLITE_DATABASE = f"{GLOBAL_NOP_DIRECTORY}/nop.db"
-SQLITE_DATABASE = "/home/sgelias/Neoprospecta/Bioinfo/nop-v2/nop.db"
+# SQLITE_DATABASE = f"{GLOBAL_NOP_DIRECTORY}/blu.db"
+SQLITE_DATABASE = "/home/sgelias/blu-v2/blu.db"

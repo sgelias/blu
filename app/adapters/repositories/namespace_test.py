@@ -23,7 +23,7 @@ def test_add_namespace():
 
     # Fetch the inserted record.
     query_namespace = eng.execute(
-        f"SELECT * FROM nop_namespaces WHERE id = '{new_namespace.id}';"
+        f"SELECT * FROM blu_namespaces WHERE id = '{new_namespace.id}';"
     ).fetchone()
 
     print(new_namespace)
@@ -34,4 +34,4 @@ def test_add_namespace():
     assert query_namespace.namespace == new_namespace.namespace
 
     # Delete inserted record.
-    eng.execute(f"DELETE FROM nop_namespaces WHERE id = '{new_namespace.id}';")
+    eng.execute(f"DELETE FROM blu_namespaces WHERE id = '{new_namespace.id}';")

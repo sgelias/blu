@@ -7,7 +7,7 @@ from sqlalchemy import Column, String, Text
 class NamespacesModel(Base):
     """Namespaces entity."""
 
-    __tablename__ = "nop_namespaces"
+    __tablename__ = "blu_namespaces"
 
     id = Column(Text(length=36), default=lambda: str(uuid4()), primary_key=True)
 

@@ -21,15 +21,15 @@ with open("requirements.txt", "r") as requirements_file:
 
 
 SETUP_ARGS = dict(
-    author="Neoprospecta DEV's Team 2021.",
-    author_email="samuel.elias@neoprospecta.com",
-    name="NopCLI",
-    version="2.0.0",
-    description="Neoprospecta Operational Command Line Interface - NOP-CLI",
+    author="Samuel Galvão Elias 2021.",
+    author_email="sgelias@outlook.com",
+    name="blu",
+    version="1.0.0",
+    description="Blu",
     long_description=README,
     long_description_content_type="text/markdown",
-    keywords=["Genbank", "Blast", "Neoprospecta", "Operational", "Bioinformatics"],
-    url="https://bitbucket.org/neoprospecta/nop_cli/src/main/",
+    keywords=["Genbank", "Blast", "Bioinformatics"],
+    url="https://github.com/sgelias/blu/src/main/",
     packages=find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -38,7 +38,7 @@ SETUP_ARGS = dict(
     python_requires=">=3.7",
     options={"bdist_wheel": {"universal": True}},
     entry_points={
-        "console_scripts": ["nop=app.main:main"],
+        "console_scripts": ["blu=app.main:main"],
     },
 )
 

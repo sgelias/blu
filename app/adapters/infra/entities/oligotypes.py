@@ -8,7 +8,7 @@ from sqlalchemy.orm import relationship
 class OligotypesModel(Base):
     """Oligotypes entity."""
 
-    __tablename__ = "nop_oligotypes"
+    __tablename__ = "blu_oligotypes"
 
     id = Column(Text(length=36), default=lambda: str(uuid4()), primary_key=True)
 

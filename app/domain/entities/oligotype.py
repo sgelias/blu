@@ -40,7 +40,7 @@ class Oligotype:
     # -------------------------------------------------------------------------
 
     def __check_and_initialize_default_oligotype(self) -> None:
-        """Check if oligotype is default for Neoprospecta usage.
+        """Check if oligotype is default.
 
         Returns:
             bool: True if oligotype see the default format. False otherwise.

@@ -1,6 +1,6 @@
 **/__pycache__
 *.pyc
 data
-nop.db
-nop.session.sql
+blu.db
+blu.session.sql
 .pytest_cache

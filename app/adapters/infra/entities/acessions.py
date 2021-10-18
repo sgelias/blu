@@ -9,7 +9,7 @@ from .blastn_report import blast_hits_accessions
 class AccessionsModel(Base):
     """Accessions entity."""
 
-    __tablename__ = "nop_accessions"
+    __tablename__ = "blu_accessions"
 
     id = Column(Text(length=36), default=lambda: str(uuid4()), primary_key=True)
 

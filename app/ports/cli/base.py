@@ -15,7 +15,7 @@ __version__ = "2.0.0"
 
 @click.group()
 @click.version_option(version=__version__)
-def nop_cmds():
+def blu_cmds():
     ...
 
 
@@ -24,7 +24,7 @@ def nop_cmds():
 # -----------------------------------------------------------------------------
 
 
-@nop_cmds.group("acc", help="Accessions associated tools.")
+@blu_cmds.group("acc", help="Accessions associated tools.")
 def accessions_cmds():
     ...
 
@@ -40,7 +40,7 @@ def get_accessions_list_cli(**kwargs) -> None:
 # -----------------------------------------------------------------------------
 
 
-@nop_cmds.group("ns", help="Namespace associated tools.")
+@blu_cmds.group("ns", help="Namespace associated tools.")
 def namespaces_cmds():
     ...
 
@@ -73,7 +73,7 @@ def update_namespace_cli(**kwargs) -> None:
 # -----------------------------------------------------------------------------
 
 
-@nop_cmds.group("oligo", help="Oligotypes associated tools.")
+@blu_cmds.group("oligo", help="Oligotypes associated tools.")
 def oligotypes_cmds():
     ...
 
@@ -106,7 +106,7 @@ def update_oligotype_cli(**kwargs) -> None:
 # -----------------------------------------------------------------------------
 
 
-@nop_cmds.group("ol", help="Oligotypes links associated tools.")
+@blu_cmds.group("ol", help="Oligotypes links associated tools.")
 def oligotype_links_cmds():
     ...
 

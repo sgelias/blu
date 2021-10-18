@@ -23,7 +23,7 @@ def test_add_oligotype():
 
     # Fetch the inserted record.
     query_oligotype = eng.execute(
-        f"SELECT * FROM nop_oligotypes WHERE id = '{new_oligotype.id}';"
+        f"SELECT * FROM blu_oligotypes WHERE id = '{new_oligotype.id}';"
     ).fetchone()
 
     print(new_oligotype)
@@ -37,4 +37,4 @@ def test_add_oligotype():
     assert not query_oligotype.is_default_oligotype
 
     # Delete inserted record.
-    eng.execute(f"DELETE FROM nop_oligotypes WHERE id = '{new_oligotype.id}';")
+    eng.execute(f"DELETE FROM blu_oligotypes WHERE id = '{new_oligotype.id}';")

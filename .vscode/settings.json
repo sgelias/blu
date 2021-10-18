@@ -3,9 +3,9 @@
         {
             "previewLimit": 50,
             "driver": "SQLite",
-            "name": "nop",
-            "group": "nop",
-            "database": "./nop.db"
+            "name": "blu",
+            "group": "blu",
+            "database": "./blu.db"
         }
     ],
     "python.formatting.provider": "black",
