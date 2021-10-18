@@ -16,7 +16,7 @@ with open("README.md", "r") as readme_file:
     README = readme_file.read()
 
 
-with open("requirements.txt", "r") as requirements_file:
+with open("requirements-dev.txt", "r") as requirements_file:
     REQUIRES = requirements_file.read().splitlines()
 
 

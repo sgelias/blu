@@ -4,3 +4,4 @@ data
 blu.db
 blu.session.sql
 .pytest_cache
+blu.egg-info
