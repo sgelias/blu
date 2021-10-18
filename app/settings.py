@@ -29,4 +29,4 @@ if not GLOBAL_NOP_DIRECTORY:
 
 
 # SQLITE_DATABASE = f"{GLOBAL_NOP_DIRECTORY}/blu.db"
-SQLITE_DATABASE = "/home/sgelias/blu-v2/blu.db"
+SQLITE_DATABASE = "/home/sgelias/blu/blu.db"
