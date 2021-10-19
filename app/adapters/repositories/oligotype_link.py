@@ -1,50 +1,59 @@
-from typing import List
+from typing import List, Tuple
 
 from app.adapters.infra.config import DBConnectionHander
 from app.adapters.infra.entities import NamespacedOligotypesModel
-from app.domain.entities import Namespace, Oligotype, NamespacesdOligotype
-from app.domain.repository import NamespacesdOligotypeRepository
+from app.domain.entities import NamespacedOligotype
+from app.domain.repository import NamespacedOligotypeRepository
 from dacite import from_dict
 
 
-class NamespacesdOligotypeRepositoryManager(NamespacesdOligotypeRepository):
+class NamespacesdOligotypeRepositoryManager(NamespacedOligotypeRepository):
     """A manager of Namespaced Oligotypes model."""
 
     @staticmethod
-    def add(oligotype: Oligotype, namespace: Namespace) -> NamespacesdOligotype:
+    def add(
+        namespaced_oligotype: NamespacedOligotype,
+    ) -> Tuple[bool, NamespacedOligotype]:
         """Insert a single record into database.
 
         Args:
-            oligotype (Oligotype): A single oligotype instance.
-            namespace (Namespace): A single namespace instance.
+            namespaced_oligotype (NamespacedOligotype): A single namespaced
+                oligotype entity.
 
         Returns:
-            NamespacesdOligotype: A namespaced oligotype instance.
+            Tuple[bool, NamespacesdOligotype]: A boolean indicating if the
+                namespace was created (True) or recovered from database
+                (False), and a instance of the created namespaced oligotype.
         """
 
-        with DBConnectionHander() as conn:
-            try:
-                namespaced_oligotype = NamespacedOligotypesModel(
-                    namespace=namespace, oligotype=oligotype
-                )
+        old_namespaced_oligotype = NamespacedOligotypesModel.query.filter(
+            (NamespacedOligotypesModel.namespace == namespaced_oligotype.namespace)
+            & (NamespacedOligotypesModel.oligotype == namespaced_oligotype.oligotype)
+        ).first()
 
-                conn.session.add(namespaced_oligotype)
-                conn.session.commit()
+        if not old_namespaced_oligotype:
+            with DBConnectionHander() as conn:
+                try:
+                    new_namespaced_oligotype = NamespacedOligotypesModel(
+                        **namespaced_oligotype.__dict__
+                    )
 
-                return NamespacesdOligotype(
-                    id=namespaced_oligotype.id,
-                    namespace=namespaced_oligotype.namespace,
-                    oligotype=namespaced_oligotype.oligotype,
-                )
+                    conn.session.add(namespaced_oligotype)
+                    conn.session.commit()
+                    return True, from_dict(
+                        NamespacedOligotype, new_namespaced_oligotype.as_dict()
+                    )
 
-            except:
-                conn.session.rollback()
-                raise
-            finally:
-                conn.session.close_all()
+                except:
+                    conn.session.rollback()
+                    raise
+                finally:
+                    conn.session.close_all()
+
+        return False, from_dict(NamespacedOligotype, old_namespaced_oligotype.as_dict())
 
     @staticmethod
-    def show(term: str) -> List[NamespacesdOligotype]:
+    def show(term: str) -> List[NamespacedOligotype]:
         """List namespaced oligotypes given the search term.
 
         Args:
@@ -56,7 +65,7 @@ class NamespacesdOligotypeRepositoryManager(NamespacesdOligotypeRepository):
 
         if term:
             return [
-                from_dict(NamespacesdOligotype, record.__dict__)
+                from_dict(NamespacedOligotype, record.__dict__)
                 for record in (
                     NamespacedOligotypesModel.query.filter(
                         (NamespacedOligotypesModel.namespace == term)
@@ -69,7 +78,7 @@ class NamespacesdOligotypeRepositoryManager(NamespacesdOligotypeRepository):
             ]
 
         return [
-            from_dict(Namespace, record.__dict__)
+            from_dict(NamespacedOligotype, record.__dict__)
             for record in (
                 NamespacedOligotypesModel.query.order_by(
                     NamespacedOligotypesModel.namespace.desc(),

@@ -4,14 +4,14 @@ from uuid import uuid4
 
 if TYPE_CHECKING:
     # This is necessary to prevent circular imports
-    from app.domain.repository import NamespacesdOligotypeRepository
+    from app.domain.repository import NamespacedOligotypeRepository
 
 from .namespace import Namespace
 from .oligotype import Oligotype
 
 
 @dataclass
-class NamespacesdOligotype:
+class NamespacedOligotype:
 
     # -------------------------------------------------------------------------
     # FIELD DEFINITIONS
@@ -25,7 +25,7 @@ class NamespacesdOligotype:
     # PUBLIC METHODS
     # -------------------------------------------------------------------------
 
-    def save(self, namespaced_oligotype_repository: "NamespacesdOligotypeRepository"):
+    def save(self, namespaced_oligotype_repository: "NamespacedOligotypeRepository"):
         return namespaced_oligotype_repository.add(self)
 
     # -------------------------------------------------------------------------

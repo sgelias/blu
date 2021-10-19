@@ -23,7 +23,7 @@ def test_add_accession():
     accession = Accession(**data)
 
     # Insert a single record.
-    new_accession = accession_repository.add(accession)
+    _, new_accession = accession_repository.add(accession)
 
     # Fetch the inserted record.
     query_accession = eng.execute(

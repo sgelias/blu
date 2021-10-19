@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Tuple
 
 from app.adapters.infra.config import DBConnectionHander
 from app.adapters.infra.entities import OligotypesModel
@@ -13,14 +13,16 @@ class OligotypeRepositoryManager(OligotypeRepository):
     """A manager of Oligotype model."""
 
     @staticmethod
-    def add(oligotype: Oligotype) -> Oligotype:
+    def add(oligotype: Oligotype) -> Tuple[bool, Oligotype]:
         """Insert a single record into database
 
         Args:
             oligotype (Oligotype): An oligotype object.
 
         Returns:
-            Oligotype: A instance of the created oligotype.
+            Tuple[bool, Oligotype]: A boolean indicating if the
+                oligotype was created (True) or recovered from database
+                (False), and a instance of the created oligotype.
         """
 
         old_oligotype = OligotypesModel.query.filter(
@@ -30,16 +32,10 @@ class OligotypeRepositoryManager(OligotypeRepository):
         if not old_oligotype:
             with DBConnectionHander() as conn:
                 try:
-                    oligotype = OligotypesModel(**oligotype.__dict__)
-                    conn.session.add(oligotype)
+                    new_oligotype = OligotypesModel(**oligotype.__dict__)
+                    conn.session.add(new_oligotype)
                     conn.session.commit()
-
-                    return Oligotype(
-                        id=oligotype.id,
-                        oligotype=oligotype.oligotype,
-                        oligotype_code=oligotype.oligotype_code,
-                        is_default_oligotype=oligotype.is_default_oligotype,
-                    )
+                    return True, from_dict(Oligotype, new_oligotype.as_dict())
 
                 except:
                     conn.session.rollback()
@@ -47,7 +43,7 @@ class OligotypeRepositoryManager(OligotypeRepository):
                 finally:
                     conn.session.close_all()
 
-        raise AlreadyRegisteredOligotype(oligotype.oligotype)
+        return False, from_dict(Oligotype, old_oligotype.as_dict())
 
     @staticmethod
     def show(term: str) -> List[Oligotype]:

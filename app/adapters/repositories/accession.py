@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Tuple
 
 from app.adapters.infra.config import DBConnectionHander
 from app.adapters.infra.entities import AccessionsModel
@@ -11,36 +11,37 @@ class AccessionRepositoryManager(AccessionRepository):
     """A manager of Accessions model."""
 
     @staticmethod
-    def add(accession: Accession) -> Accession:
+    def add(accession: Accession) -> Tuple[bool, Accession]:
         """Insert a single record into database
 
         Args:
             accession (Accession): An acession object.
 
         Returns:
-            Accession: A instance of the created accession.
+            Tuple[bool, Accession]: A boolean indicating if the
+                accession was created (True) or recovered from database
+                (False), and a instance of the created accession.
         """
 
-        with DBConnectionHander() as conn:
-            try:
-                accession = AccessionsModel(**accession.__dict__)
-                conn.session.add(accession)
-                conn.session.commit()
+        old_accession = AccessionsModel.query.filter(
+            AccessionsModel.accession == accession.accession
+        ).first()
 
-                return Accession(
-                    id=accession.id,
-                    accession=accession.accession,
-                    title=accession.title,
-                    taxid=accession.taxid,
-                    sciname=accession.sciname,
-                    sciname_clean=accession.sciname_clean,
-                )
+        if not old_accession:
+            with DBConnectionHander() as conn:
+                try:
+                    new_accession = AccessionsModel(**accession.__dict__)
+                    conn.session.add(new_accession)
+                    conn.session.commit()
+                    return True, from_dict(Accession, new_accession.as_dict())
 
-            except:
-                conn.session.rollback()
-                raise
-            finally:
-                conn.session.close_all()
+                except:
+                    conn.session.rollback()
+                    raise
+                finally:
+                    conn.session.close_all()
+
+        return from_dict(Accession, old_accession.as_dict())
 
     @staticmethod
     def show(term: str) -> List[Accession]:

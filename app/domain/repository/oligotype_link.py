@@ -1,19 +1,21 @@
 from abc import ABCMeta, abstractmethod
-from typing import List
+from typing import List, Tuple
 
-from app.domain.entities import Oligotype, Namespace, NamespacesdOligotype
+from app.domain.entities import NamespacedOligotype
 
 
-class NamespacesdOligotypeRepository(metaclass=ABCMeta):
+class NamespacedOligotypeRepository(metaclass=ABCMeta):
 
     # -------------------------------------------------------------------------
     # ABSTRACT METHODS
     # -------------------------------------------------------------------------
 
     @abstractmethod
-    def add(self, oligotype: Oligotype, namespace: Namespace) -> NamespacesdOligotype:
+    def add(
+        self, namespaced_oligotype: NamespacedOligotype
+    ) -> Tuple[bool, NamespacedOligotype]:
         raise NotImplementedError
 
     @abstractmethod
-    def show(self) -> List[NamespacesdOligotype]:
+    def show(self) -> List[NamespacedOligotype]:
         raise NotImplementedError

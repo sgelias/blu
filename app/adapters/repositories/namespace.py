@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Tuple
 
 from app.adapters.infra.config import DBConnectionHander
 from app.adapters.infra.entities import NamespacesModel
@@ -12,32 +12,37 @@ class NamespaceRepositoryManager(NamespaceRepository):
     """A manager of Namespaces model."""
 
     @staticmethod
-    def add(namespace: Namespace) -> Namespace:
+    def add(namespace: Namespace) -> Tuple[bool, Namespace]:
         """Insert a single record into database
 
         Args:
             namespace (Namespace): An namespace object.
 
         Returns:
-            Namespace: A instance of the created namespace.
+            Tuple[bool, Namespace]: A boolean indicating if the namespace was
+                created (True) or recovered from database (False), and a
+                instance of the created namespace.
         """
 
-        with DBConnectionHander() as conn:
-            try:
-                namespace = NamespacesModel(**namespace.__dict__)
-                conn.session.add(namespace)
-                conn.session.commit()
+        old_namespace = NamespacesModel.query.filter(
+            NamespacesModel.namespace == namespace.namespace
+        ).first()
 
-                return Namespace(
-                    id=namespace.id,
-                    namespace=namespace.namespace,
-                )
+        if not old_namespace:
+            with DBConnectionHander() as conn:
+                try:
+                    new_namespace = NamespacesModel(**namespace.__dict__)
+                    conn.session.add(new_namespace)
+                    conn.session.commit()
+                    return True, from_dict(Namespace, new_namespace.as_dict())
 
-            except:
-                conn.session.rollback()
-                raise
-            finally:
-                conn.session.close_all()
+                except:
+                    conn.session.rollback()
+                    raise
+                finally:
+                    conn.session.close_all()
+
+        return False, from_dict(Namespace, old_namespace.as_dict())
 
     @staticmethod
     def show(term: str) -> List[Namespace]:

@@ -19,7 +19,7 @@ def test_add_oligotype():
     oligotype = Oligotype(**data)
 
     # Insert a single record.
-    new_oligotype = oligotype_repository.add(oligotype)
+    _, new_oligotype = oligotype_repository.add(oligotype)
 
     # Fetch the inserted record.
     query_oligotype = eng.execute(
@@ -32,9 +32,10 @@ def test_add_oligotype():
     # Compare the record content.
     assert query_oligotype.id == new_oligotype.id
     assert query_oligotype.oligotype == new_oligotype.oligotype
-    assert query_oligotype.oligotype_code == new_oligotype.oligotype_code
-    assert query_oligotype.is_default_oligotype == new_oligotype.is_default_oligotype
     assert not query_oligotype.is_default_oligotype
+
+    if query_oligotype.is_default_oligotype:
+        assert query_oligotype.oligotype_code != new_oligotype.oligotype_code
 
     # Delete inserted record.
     eng.execute(f"DELETE FROM blu_oligotypes WHERE id = '{new_oligotype.id}';")

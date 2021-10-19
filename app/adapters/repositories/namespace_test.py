@@ -19,7 +19,8 @@ def test_add_namespace():
     namespace = Namespace(**data)
 
     # Insert a single record.
-    new_namespace = namespace_repository.add(namespace)
+    _, new_namespace = namespace_repository.add(namespace)
+    print(new_namespace)
 
     # Fetch the inserted record.
     query_namespace = eng.execute(

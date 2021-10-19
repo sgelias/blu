@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from typing import List
+from typing import List, Tuple
 
 from app.domain.entities import Namespace
 
@@ -11,7 +11,7 @@ class NamespaceRepository(metaclass=ABCMeta):
     # -------------------------------------------------------------------------
 
     @abstractmethod
-    def add(self, namespace: Namespace) -> Namespace:
+    def add(self, namespace: Namespace) -> Tuple[bool, Namespace]:
         raise NotImplementedError
 
     @abstractmethod

@@ -7,7 +7,7 @@ from .blast_report import (
 )
 from .namespace import NamespaceRepository
 from .oligotype import OligotypeRepository
-from .oligotype_link import NamespacesdOligotypeRepository
+from .oligotype_link import NamespacedOligotypeRepository
 
 
 __all__ = (
@@ -18,5 +18,5 @@ __all__ = (
     "BlastResultsRepository",
     "NamespaceRepository",
     "OligotypeRepository",
-    "NamespacesdOligotypeRepository",
+    "NamespacedOligotypeRepository",
 )

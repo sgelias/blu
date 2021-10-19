@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, Optional
 from uuid import uuid4
 
 if TYPE_CHECKING:
@@ -15,7 +15,7 @@ class Oligotype:
     # -------------------------------------------------------------------------
 
     oligotype: str
-    oligotype_code: int = field(default=None)
+    oligotype_code: Optional[int] = field(default=None)
     is_default_oligotype: bool = field(default_factory=lambda: False)
     id: str = field(default_factory=lambda: str(uuid4()))
 
