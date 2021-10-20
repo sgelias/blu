@@ -2,7 +2,7 @@ astroid==2.8.2
 attrs==21.2.0
 backports.entry-points-selectable==1.1.0
 black==21.9b0
--e git+https://github.com/sgelias/blu.git@a6a19dcfde0a0defc1712e1b2e1df4e67b1ccd45#egg=blu
+-e git+https://github.com/sgelias/blu.git@d48d9d21873bf100d456c7415df7ee07b4befbaf#egg=blu
 cfgv==3.3.1
 click==8.0.3
 dacite==1.6.0

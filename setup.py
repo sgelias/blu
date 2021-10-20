@@ -38,7 +38,7 @@ SETUP_ARGS = dict(
     python_requires=">=3.7",
     options={"bdist_wheel": {"universal": True}},
     entry_points={
-        "console_scripts": ["blu=app.main:main"],
+        "console_scripts": ["blu=src.main:main"],
     },
 )
 
