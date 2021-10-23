@@ -1,7 +1,7 @@
 from typing import Any, Dict
 
 from src.adapters.repositories import NamespaceRepositoryManager
-from src.domain.entities import Namespace
+from src.domain.data_stores import Namespace
 
 
 def get_namespaces_list(term: str) -> None:

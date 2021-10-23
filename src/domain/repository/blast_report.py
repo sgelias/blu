@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
-from src.domain.entities import BlastConfig, BlastHits, BlastHsps, BlastResults
+from src.domain.data_stores import BlastConfig, BlastHits, BlastHsps, BlastResults
 
 
 class BlastConfigRepository(metaclass=ABCMeta):
@@ -10,7 +10,7 @@ class BlastConfigRepository(metaclass=ABCMeta):
     # -------------------------------------------------------------------------
 
     @abstractmethod
-    def add(self, blast_config: BlastConfig) -> BlastConfig:
+    def get_or_create(self, blast_config: BlastConfig) -> BlastConfig:
         raise NotImplementedError
 
     @abstractmethod
@@ -25,7 +25,7 @@ class BlastHspsRepository(metaclass=ABCMeta):
     # -------------------------------------------------------------------------
 
     @abstractmethod
-    def add(self, blast_hsps: BlastHsps) -> BlastHsps:
+    def get_or_create(self, blast_hsps: BlastHsps) -> BlastHsps:
         raise NotImplementedError
 
     @abstractmethod
@@ -40,7 +40,7 @@ class BlastHitsRepository(metaclass=ABCMeta):
     # -------------------------------------------------------------------------
 
     @abstractmethod
-    def add(self, blast_hits: BlastHits) -> BlastHits:
+    def get_or_create(self, blast_hits: BlastHits) -> BlastHits:
         raise NotImplementedError
 
     @abstractmethod
@@ -55,7 +55,7 @@ class BlastResultsRepository(metaclass=ABCMeta):
     # -------------------------------------------------------------------------
 
     @abstractmethod
-    def add(self, blast_results: BlastResults) -> BlastResults:
+    def get_or_create(self, blast_results: BlastResults) -> BlastResults:
         raise NotImplementedError
 
     @abstractmethod

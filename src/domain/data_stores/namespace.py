@@ -4,7 +4,7 @@ from uuid import uuid4
 
 if TYPE_CHECKING:
     # This is necessary to prevent circular imports
-    from src.domain.repository import NamespaceRepository
+    from ..repository import NamespaceRepository
 
 
 @dataclass
@@ -22,7 +22,7 @@ class Namespace:
     # -------------------------------------------------------------------------
 
     def save(self, namespace_repository: "NamespaceRepository"):
-        return namespace_repository.add(self)
+        return namespace_repository.get_or_create(self)
 
     # -------------------------------------------------------------------------
     # MAGIC METHODS

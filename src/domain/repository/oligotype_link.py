@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from typing import List, Tuple
 
-from src.domain.entities import NamespacedOligotype
+from src.domain.data_stores import NamespacedOligotype
 
 
 class NamespacedOligotypeRepository(metaclass=ABCMeta):
@@ -11,7 +11,7 @@ class NamespacedOligotypeRepository(metaclass=ABCMeta):
     # -------------------------------------------------------------------------
 
     @abstractmethod
-    def add(
+    def get_or_create(
         self, namespaced_oligotype: NamespacedOligotype
     ) -> Tuple[bool, NamespacedOligotype]:
         raise NotImplementedError

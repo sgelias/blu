@@ -2,7 +2,7 @@ from typing import List, Tuple
 
 from src.adapters.infra.config import DBConnectionHander
 from src.adapters.infra.entities import OligotypesModel
-from src.domain.entities import Oligotype
+from src.domain.data_stores import Oligotype
 from src.domain.repository import OligotypeRepository
 from src.domain.exceptions import AlreadyRegisteredOligotype
 from dacite import from_dict
@@ -13,7 +13,7 @@ class OligotypeRepositoryManager(OligotypeRepository):
     """A manager of Oligotype model."""
 
     @staticmethod
-    def add(oligotype: Oligotype) -> Tuple[bool, Oligotype]:
+    def get_or_create(oligotype: Oligotype) -> Tuple[bool, Oligotype]:
         """Insert a single record into database
 
         Args:
@@ -29,21 +29,21 @@ class OligotypeRepositoryManager(OligotypeRepository):
             OligotypesModel.oligotype == oligotype.oligotype
         ).first()
 
-        if not old_oligotype:
-            with DBConnectionHander() as conn:
-                try:
-                    new_oligotype = OligotypesModel(**oligotype.__dict__)
-                    conn.session.add(new_oligotype)
-                    conn.session.commit()
-                    return True, from_dict(Oligotype, new_oligotype.as_dict())
+        if old_oligotype:
+            return False, from_dict(Oligotype, old_oligotype.as_dict())
 
-                except:
-                    conn.session.rollback()
-                    raise
-                finally:
-                    conn.session.close_all()
+        with DBConnectionHander() as conn:
+            try:
+                new_oligotype = OligotypesModel(**oligotype.__dict__)
+                conn.session.add(new_oligotype)
+                conn.session.commit()
+                return True, from_dict(Oligotype, new_oligotype.as_dict())
 
-        return False, from_dict(Oligotype, old_oligotype.as_dict())
+            except:
+                conn.session.rollback()
+                raise
+            finally:
+                conn.session.close_all()
 
     @staticmethod
     def show(term: str) -> List[Oligotype]:

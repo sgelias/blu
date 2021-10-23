@@ -2,7 +2,7 @@ from typing import List, Tuple
 
 from src.adapters.infra.config import DBConnectionHander
 from src.adapters.infra.entities import NamespacesModel
-from src.domain.entities import Namespace
+from src.domain.data_stores import Namespace
 from src.domain.repository import NamespaceRepository
 from dacite import from_dict
 from sqlalchemy import update
@@ -12,7 +12,7 @@ class NamespaceRepositoryManager(NamespaceRepository):
     """A manager of Namespaces model."""
 
     @staticmethod
-    def add(namespace: Namespace) -> Tuple[bool, Namespace]:
+    def get_or_create(namespace: Namespace) -> Tuple[bool, Namespace]:
         """Insert a single record into database
 
         Args:
@@ -28,21 +28,21 @@ class NamespaceRepositoryManager(NamespaceRepository):
             NamespacesModel.namespace == namespace.namespace
         ).first()
 
-        if not old_namespace:
-            with DBConnectionHander() as conn:
-                try:
-                    new_namespace = NamespacesModel(**namespace.__dict__)
-                    conn.session.add(new_namespace)
-                    conn.session.commit()
-                    return True, from_dict(Namespace, new_namespace.as_dict())
+        if old_namespace:
+            return False, from_dict(Namespace, old_namespace.as_dict())
 
-                except:
-                    conn.session.rollback()
-                    raise
-                finally:
-                    conn.session.close_all()
+        with DBConnectionHander() as conn:
+            try:
+                new_namespace = NamespacesModel(**namespace.__dict__)
+                conn.session.add(new_namespace)
+                conn.session.commit()
+                return True, from_dict(Namespace, new_namespace.as_dict())
 
-        return False, from_dict(Namespace, old_namespace.as_dict())
+            except:
+                conn.session.rollback()
+                raise
+            finally:
+                conn.session.close_all()
 
     @staticmethod
     def show(term: str) -> List[Namespace]:

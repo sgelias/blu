@@ -1,6 +1,6 @@
 from src.adapters.infra.config import DBConnectionHander
 from src.adapters.repositories import OligotypeRepositoryManager
-from src.domain.entities import Oligotype
+from src.domain.data_stores import Oligotype
 from faker import Faker
 
 faker = Faker()
@@ -19,7 +19,10 @@ def test_add_oligotype():
     oligotype = Oligotype(**data)
 
     # Insert a single record.
-    _, new_oligotype = oligotype_repository.add(oligotype)
+    new_created, new_oligotype = oligotype_repository.get_or_create(oligotype)
+
+    # Get an existent record.
+    non_new_created, non_new_oligotype = oligotype_repository.get_or_create(oligotype)
 
     # Fetch the inserted record.
     query_oligotype = eng.execute(
@@ -30,6 +33,9 @@ def test_add_oligotype():
     print(query_oligotype)
 
     # Compare the record content.
+    assert new_created is True
+    assert non_new_created is False
+    assert new_oligotype == non_new_oligotype
     assert query_oligotype.id == new_oligotype.id
     assert query_oligotype.oligotype == new_oligotype.oligotype
     assert not query_oligotype.is_default_oligotype

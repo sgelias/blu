@@ -4,7 +4,7 @@ from uuid import uuid4
 
 if TYPE_CHECKING:
     # This is necessary to prevent circular imports
-    from src.domain.repository import (
+    from ..repository import (
         BlastConfigRepository,
         BlastHitsRepository,
         BlastHspsRepository,
@@ -38,7 +38,7 @@ class BlastConfig:
     # -------------------------------------------------------------------------
 
     def save(self, blast_config_repository: "BlastConfigRepository"):
-        return blast_config_repository.add(self)
+        return blast_config_repository.get_or_create(self)
 
     # -------------------------------------------------------------------------
     # MAGIC METHODS
@@ -77,7 +77,7 @@ class BlastHsps:
     # -------------------------------------------------------------------------
 
     def save(self, blast_hsps_repository: "BlastHspsRepository"):
-        return blast_hsps_repository.add(self)
+        return blast_hsps_repository.get_or_create(self)
 
     # -------------------------------------------------------------------------
     # MAGIC METHODS
@@ -103,7 +103,7 @@ class BlastHits:
     # -------------------------------------------------------------------------
 
     def save(self, blast_hits_repository: "BlastHitsRepository"):
-        return blast_hits_repository.add(self)
+        return blast_hits_repository.get_or_create(self)
 
     # -------------------------------------------------------------------------
     # MAGIC METHODS
@@ -130,7 +130,7 @@ class BlastResults:
     # -------------------------------------------------------------------------
 
     def save(self, blast_results_repository: "BlastResultsRepository"):
-        return blast_results_repository.add(self)
+        return blast_results_repository.get_or_create(self)
 
     # -------------------------------------------------------------------------
     # MAGIC METHODS

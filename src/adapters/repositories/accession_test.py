@@ -1,6 +1,6 @@
 from src.adapters.infra.config import DBConnectionHander
 from src.adapters.repositories import AccessionRepositoryManager
-from src.domain.entities import Accession
+from src.domain.data_stores import Accession
 from faker import Faker
 
 faker = Faker()
@@ -23,7 +23,10 @@ def test_add_accession():
     accession = Accession(**data)
 
     # Insert a single record.
-    _, new_accession = accession_repository.add(accession)
+    new_created, new_accession = accession_repository.get_or_create(accession)
+
+    # Get an existent record.
+    non_new_created, non_new_accession = accession_repository.get_or_create(accession)
 
     # Fetch the inserted record.
     query_accession = eng.execute(
@@ -34,6 +37,9 @@ def test_add_accession():
     print(query_accession)
 
     # Compare the record content.
+    assert new_created is True
+    assert non_new_created is False
+    assert new_accession == non_new_accession
     assert query_accession.id == new_accession.id
     assert query_accession.accession == new_accession.accession
     assert query_accession.title == new_accession.title

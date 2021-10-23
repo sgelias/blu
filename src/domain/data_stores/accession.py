@@ -4,7 +4,7 @@ from uuid import uuid4
 
 if TYPE_CHECKING:
     # This is necessary to prevent circular imports
-    from src.domain.repository import AccessionRepository
+    from ..repository import AccessionRepository
 
 
 @dataclass
@@ -26,7 +26,7 @@ class Accession:
     # -------------------------------------------------------------------------
 
     def save(self, accession_repository: "AccessionRepository"):
-        return accession_repository.add(self)
+        return accession_repository.get_or_create(self)
 
     # -------------------------------------------------------------------------
     # MAGIC METHODS

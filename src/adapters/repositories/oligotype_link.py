@@ -2,7 +2,7 @@ from typing import List, Tuple
 
 from src.adapters.infra.config import DBConnectionHander
 from src.adapters.infra.entities import NamespacedOligotypesModel
-from src.domain.entities import NamespacedOligotype
+from src.domain.data_stores import NamespacedOligotype
 from src.domain.repository import NamespacedOligotypeRepository
 from dacite import from_dict
 
@@ -11,7 +11,7 @@ class NamespacesdOligotypeRepositoryManager(NamespacedOligotypeRepository):
     """A manager of Namespaced Oligotypes model."""
 
     @staticmethod
-    def add(
+    def get_or_create(
         namespaced_oligotype: NamespacedOligotype,
     ) -> Tuple[bool, NamespacedOligotype]:
         """Insert a single record into database.
@@ -31,26 +31,28 @@ class NamespacesdOligotypeRepositoryManager(NamespacedOligotypeRepository):
             & (NamespacedOligotypesModel.oligotype == namespaced_oligotype.oligotype)
         ).first()
 
-        if not old_namespaced_oligotype:
-            with DBConnectionHander() as conn:
-                try:
-                    new_namespaced_oligotype = NamespacedOligotypesModel(
-                        **namespaced_oligotype.__dict__
-                    )
+        if old_namespaced_oligotype:
+            return False, from_dict(
+                NamespacedOligotype, old_namespaced_oligotype.as_dict()
+            )
 
-                    conn.session.add(namespaced_oligotype)
-                    conn.session.commit()
-                    return True, from_dict(
-                        NamespacedOligotype, new_namespaced_oligotype.as_dict()
-                    )
+        with DBConnectionHander() as conn:
+            try:
+                new_namespaced_oligotype = NamespacedOligotypesModel(
+                    **namespaced_oligotype.__dict__
+                )
 
-                except:
-                    conn.session.rollback()
-                    raise
-                finally:
-                    conn.session.close_all()
+                conn.session.add(namespaced_oligotype)
+                conn.session.commit()
+                return True, from_dict(
+                    NamespacedOligotype, new_namespaced_oligotype.as_dict()
+                )
 
-        return False, from_dict(NamespacedOligotype, old_namespaced_oligotype.as_dict())
+            except:
+                conn.session.rollback()
+                raise
+            finally:
+                conn.session.close_all()
 
     @staticmethod
     def show(term: str) -> List[NamespacedOligotype]:

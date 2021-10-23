@@ -4,7 +4,7 @@ from uuid import uuid4
 
 if TYPE_CHECKING:
     # This is necessary to prevent circular imports
-    from src.domain.repository import NamespacedOligotypeRepository
+    from ..repository import NamespacedOligotypeRepository
 
 from .namespace import Namespace
 from .oligotype import Oligotype
@@ -26,7 +26,7 @@ class NamespacedOligotype:
     # -------------------------------------------------------------------------
 
     def save(self, namespaced_oligotype_repository: "NamespacedOligotypeRepository"):
-        return namespaced_oligotype_repository.add(self)
+        return namespaced_oligotype_repository.get_or_create(self)
 
     # -------------------------------------------------------------------------
     # MAGIC METHODS

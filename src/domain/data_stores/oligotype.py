@@ -4,7 +4,7 @@ from uuid import uuid4
 
 if TYPE_CHECKING:
     # This is necessary to prevent circular imports
-    from src.domain.repository import OligotypeRepository
+    from ..repository import OligotypeRepository
 
 
 @dataclass
@@ -26,7 +26,7 @@ class Oligotype:
     def save(self, oligotype_repository: "OligotypeRepository"):
 
         self.__check_and_initialize_default_oligotype()
-        return oligotype_repository.add(self)
+        return oligotype_repository.get_or_create(self)
 
     # -------------------------------------------------------------------------
     # MAGIC METHODS

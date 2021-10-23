@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from typing import List, Tuple
 
-from src.domain.entities import Oligotype
+from src.domain.data_stores import Oligotype
 
 
 class OligotypeRepository(metaclass=ABCMeta):
@@ -11,7 +11,7 @@ class OligotypeRepository(metaclass=ABCMeta):
     # -------------------------------------------------------------------------
 
     @abstractmethod
-    def add(self, oligotype: Oligotype) -> Tuple[bool, Oligotype]:
+    def get_or_create(self, oligotype: Oligotype) -> Tuple[bool, Oligotype]:
         raise NotImplementedError
 
     @abstractmethod
