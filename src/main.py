@@ -1,5 +1,5 @@
 from src.adapters.infra.config import Base, DBConnectionHander
-from src.adapters.infra.entities import *  # noqa: F401, F403
+from src.adapters.infra.models import *  # noqa: F401, F403
 from src.ports.cli import blu_cmds
 
 

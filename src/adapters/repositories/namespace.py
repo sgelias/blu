@@ -1,7 +1,7 @@
 from typing import List, Tuple
 
 from src.adapters.infra.config import DBConnectionHander
-from src.adapters.infra.entities import NamespacesModel
+from src.adapters.infra.models import NamespacesModel
 from src.domain.data_stores import Namespace
 from src.domain.repository import NamespaceRepository
 from dacite import from_dict

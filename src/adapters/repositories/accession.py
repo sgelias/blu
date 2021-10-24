@@ -1,7 +1,7 @@
 from typing import List, Tuple
 
 from src.adapters.infra.config import DBConnectionHander
-from src.adapters.infra.entities import AccessionsModel
+from src.adapters.infra.models import AccessionsModel
 from src.domain.data_stores import Accession
 from src.domain.repository import AccessionRepository
 from dacite import from_dict

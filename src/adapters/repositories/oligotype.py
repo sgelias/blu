@@ -1,7 +1,7 @@
 from typing import List, Tuple
 
 from src.adapters.infra.config import DBConnectionHander
-from src.adapters.infra.entities import OligotypesModel
+from src.adapters.infra.models import OligotypesModel
 from src.domain.data_stores import Oligotype
 from src.domain.repository import OligotypeRepository
 from src.domain.exceptions import AlreadyRegisteredOligotype
