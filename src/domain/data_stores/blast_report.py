@@ -1,10 +1,10 @@
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING, Dict, List
+from typing import TYPE_CHECKING, Dict, List, Optional
 from uuid import uuid4
 
 if TYPE_CHECKING:
     # This is necessary to prevent circular imports
-    from ..repository import (
+    from ..repositories import (
         BlastConfigRepository,
         BlastHitsRepository,
         BlastHspsRepository,
@@ -24,13 +24,13 @@ class BlastConfig:
 
     program: str
     search_target: Dict[str, str] = field(default_factory=lambda: dict())
-    expect: int = field(default=None)
-    sc_match: int = field(default=None)
-    sc_mismatch: int = field(default=None)
-    gap_open: int = field(default=None)
-    gap_extend: int = field(default=None)
-    filter: str = field(default=None)
-    entrez_query: str = field(default=None)
+    expect: Optional[int] = field(default=None)
+    sc_match: Optional[int] = field(default=None)
+    sc_mismatch: Optional[int] = field(default=None)
+    gap_open: Optional[int] = field(default=None)
+    gap_extend: Optional[int] = field(default=None)
+    filter: Optional[str] = field(default=None)
+    entrez_query: Optional[str] = field(default=None)
     id: str = field(default_factory=lambda: str(uuid4()))
 
     # -------------------------------------------------------------------------

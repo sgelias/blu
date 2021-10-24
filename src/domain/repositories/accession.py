@@ -1,21 +1,19 @@
 from abc import ABCMeta, abstractmethod
 from typing import List, Tuple
 
-from src.domain.data_stores import NamespacedOligotype
+from src.domain.data_stores import Accession
 
 
-class NamespacedOligotypeRepository(metaclass=ABCMeta):
+class AccessionRepository(metaclass=ABCMeta):
 
     # -------------------------------------------------------------------------
     # ABSTRACT METHODS
     # -------------------------------------------------------------------------
 
     @abstractmethod
-    def get_or_create(
-        self, namespaced_oligotype: NamespacedOligotype
-    ) -> Tuple[bool, NamespacedOligotype]:
+    def get_or_create(self, accession: Accession) -> Tuple[bool, Accession]:
         raise NotImplementedError
 
     @abstractmethod
-    def show(self) -> List[NamespacedOligotype]:
+    def show(self, term: str) -> List[Accession]:
         raise NotImplementedError

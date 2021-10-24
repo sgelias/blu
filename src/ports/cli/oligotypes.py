@@ -1,5 +1,3 @@
-from typing import Any, Dict
-
 from src.adapters.repositories import OligotypeRepositoryManager
 from src.domain.data_stores import Oligotype
 
@@ -11,11 +9,11 @@ def get_oligotypes_list(term: str) -> None:
         print(r)
 
 
-def create_oligotype(oligotype: Dict[str, Any]) -> None:
+def create_oligotype(oligotype: str) -> None:
 
-    oligotype = Oligotype(oligotype=oligotype)
+    new_oligotype = Oligotype(oligotype=oligotype)
     oligotype_repo = OligotypeRepositoryManager()
-    new_oligotype = oligotype.save(oligotype_repo)
+    new_oligotype = new_oligotype.save(oligotype_repo)
     print(new_oligotype)
 
 

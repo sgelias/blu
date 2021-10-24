@@ -4,7 +4,7 @@ from uuid import uuid4
 
 if TYPE_CHECKING:
     # This is necessary to prevent circular imports
-    from ..repository import NamespacedOligotypeRepository
+    from ..repositories import NamespacedOligotypeRepository
 
 from .namespace import Namespace
 from .oligotype import Oligotype

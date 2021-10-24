@@ -3,7 +3,7 @@ from typing import List, Tuple
 from src.adapters.infra.config import DBConnectionHander
 from src.adapters.infra.models import NamespacesModel
 from src.domain.data_stores import Namespace
-from src.domain.repository import NamespaceRepository
+from src.domain.repositories import NamespaceRepository
 from dacite import from_dict
 from sqlalchemy import update
 
@@ -11,8 +11,8 @@ from sqlalchemy import update
 class NamespaceRepositoryManager(NamespaceRepository):
     """A manager of Namespaces model."""
 
-    @staticmethod
-    def get_or_create(namespace: Namespace) -> Tuple[bool, Namespace]:
+    @classmethod
+    def get_or_create(cls, namespace: Namespace) -> Tuple[bool, Namespace]:
         """Insert a single record into database
 
         Args:
@@ -44,8 +44,8 @@ class NamespaceRepositoryManager(NamespaceRepository):
             finally:
                 conn.session.close_all()
 
-    @staticmethod
-    def show(term: str) -> List[Namespace]:
+    @classmethod
+    def show(cls, term: str) -> List[Namespace]:
         """List namespaces given the search term.
 
         Args:

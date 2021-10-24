@@ -3,15 +3,15 @@ from typing import List, Tuple
 from src.adapters.infra.config import DBConnectionHander
 from src.adapters.infra.models import AccessionsModel
 from src.domain.data_stores import Accession
-from src.domain.repository import AccessionRepository
+from src.domain.repositories import AccessionRepository
 from dacite import from_dict
 
 
 class AccessionRepositoryManager(AccessionRepository):
     """A manager of Accessions model."""
 
-    @staticmethod
-    def get_or_create(accession: Accession) -> Tuple[bool, Accession]:
+    @classmethod
+    def get_or_create(cls, accession: Accession) -> Tuple[bool, Accession]:
         """Insert a single record into database
 
         Args:
@@ -43,8 +43,8 @@ class AccessionRepositoryManager(AccessionRepository):
             finally:
                 conn.session.close_all()
 
-    @staticmethod
-    def show(term: str) -> List[Accession]:
+    @classmethod
+    def show(cls, term: str) -> List[Accession]:
         """List accessions given the search term.
 
         Args:

@@ -19,6 +19,13 @@ db_session = scoped_session(
 class Base:
     """A declarative base model for database management."""
 
+    # This attributes is necessary for mypy checks.
+    query: Any
+    metadata: Any
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        pass
+
     def as_dict(self) -> Dict[str, Any]:
         """Convert a single database output to dict.
 

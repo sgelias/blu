@@ -3,7 +3,7 @@ from typing import List, Tuple
 from src.adapters.infra.config import DBConnectionHander
 from src.adapters.infra.models import OligotypesModel
 from src.domain.data_stores import Oligotype
-from src.domain.repository import OligotypeRepository
+from src.domain.repositories import OligotypeRepository
 from src.domain.exceptions import AlreadyRegisteredOligotype
 from dacite import from_dict
 from sqlalchemy import update
@@ -12,8 +12,8 @@ from sqlalchemy import update
 class OligotypeRepositoryManager(OligotypeRepository):
     """A manager of Oligotype model."""
 
-    @staticmethod
-    def get_or_create(oligotype: Oligotype) -> Tuple[bool, Oligotype]:
+    @classmethod
+    def get_or_create(cls, oligotype: Oligotype) -> Tuple[bool, Oligotype]:
         """Insert a single record into database
 
         Args:
@@ -45,8 +45,8 @@ class OligotypeRepositoryManager(OligotypeRepository):
             finally:
                 conn.session.close_all()
 
-    @staticmethod
-    def show(term: str) -> List[Oligotype]:
+    @classmethod
+    def show(cls, term: str) -> List[Oligotype]:
         """List oligotype given the search term.
 
         Args:
@@ -73,8 +73,8 @@ class OligotypeRepositoryManager(OligotypeRepository):
             )
         ]
 
-    @staticmethod
-    def edit(old_oligotype: str, new_oligotype: str) -> Oligotype:
+    @classmethod
+    def edit(cls, old_oligotype: str, new_oligotype: str) -> Oligotype:
         """Update a existing oligotype
 
         Args:

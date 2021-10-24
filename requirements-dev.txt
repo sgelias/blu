@@ -2,7 +2,7 @@ astroid==2.8.2
 attrs==21.2.0
 backports.entry-points-selectable==1.1.0
 black==21.9b0
--e git+https://github.com/sgelias/blu.git@620aa11dcff08ce6a0017478bef6e91da7536912#egg=blu
+-e git+https://github.com/sgelias/blu.git@8445db69b32ee8761fdb35933d0d6f339b0dde40#egg=blu
 cfgv==3.3.1
 click==8.0.3
 dacite==1.6.0
@@ -16,6 +16,7 @@ iniconfig==1.1.1
 isort==5.9.3
 lazy-object-proxy==1.6.0
 mccabe==0.6.1
+mypy==0.910
 mypy-extensions==0.4.3
 nodeenv==1.6.0
 packaging==21.0
@@ -39,6 +40,7 @@ SQLAlchemy==1.4.25
 text-unidecode==1.3
 toml==0.10.2
 tomli==1.2.1
+types-click==7.1.7
 typing==3.7.4.3
 typing-extensions==3.10.0.2
 virtualenv==20.8.1

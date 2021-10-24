@@ -1,7 +1,7 @@
 from uuid import uuid4
 
-from src.adapters.infra.config import Base
 from sqlalchemy import Column, String, Text
+from src.adapters.infra.config import Base
 
 
 class NamespacesModel(Base):

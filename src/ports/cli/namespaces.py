@@ -1,5 +1,3 @@
-from typing import Any, Dict
-
 from src.adapters.repositories import NamespaceRepositoryManager
 from src.domain.data_stores import Namespace
 
@@ -11,11 +9,11 @@ def get_namespaces_list(term: str) -> None:
         print(r)
 
 
-def create_namespace(namespace: Dict[str, Any]) -> None:
+def create_namespace(namespace: str) -> None:
 
-    namespace = Namespace(namespace=namespace)
+    new_namespace = Namespace(namespace=namespace)
     namespace_repo = NamespaceRepositoryManager()
-    new_namespace = namespace.save(namespace_repo)
+    new_namespace = new_namespace.save(namespace_repo)
     print(new_namespace)
 
 

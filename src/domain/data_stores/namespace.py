@@ -4,7 +4,7 @@ from uuid import uuid4
 
 if TYPE_CHECKING:
     # This is necessary to prevent circular imports
-    from ..repository import NamespaceRepository
+    from ..repositories import NamespaceRepository
 
 
 @dataclass

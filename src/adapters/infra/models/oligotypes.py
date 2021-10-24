@@ -1,8 +1,8 @@
 from uuid import uuid4
 
-from src.adapters.infra.config import Base
-from sqlalchemy import Column, String, Text, Boolean, Integer
+from sqlalchemy import Boolean, Column, Integer, String, Text
 from sqlalchemy.orm import relationship
+from src.adapters.infra.config import Base
 
 
 class OligotypesModel(Base):

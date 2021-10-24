@@ -3,7 +3,7 @@ from typing import List, Tuple
 from src.adapters.infra.config import DBConnectionHander
 from src.adapters.infra.models import NamespacedOligotypesModel
 from src.domain.data_stores import NamespacedOligotype
-from src.domain.repository import NamespacedOligotypeRepository
+from src.domain.repositories import NamespacedOligotypeRepository
 from dacite import from_dict
 
 

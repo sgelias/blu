@@ -1,7 +1,6 @@
 import json
 from uuid import uuid4
 
-from src.adapters.infra.config import Base
 from sqlalchemy import (
     Column,
     Date,
@@ -14,6 +13,7 @@ from sqlalchemy import (
     types,
 )
 from sqlalchemy.orm import relationship
+from src.adapters.infra.config import Base
 
 
 class Json(TypeDecorator):

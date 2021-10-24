@@ -1,8 +1,9 @@
 from uuid import uuid4
 
-from src.adapters.infra.config import Base
 from sqlalchemy import Column, Integer, String, Text
 from sqlalchemy.orm import relationship
+from src.adapters.infra.config import Base
+
 from .blastn_report import blast_hits_accessions
 
 
